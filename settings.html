@@ -2346,6 +2346,26 @@ ByteTutorial.init();
       <a href="mailto:blankrhi@gmail.com" style="font-size:0.78rem;font-weight:800;color:var(--primary);text-decoration:none;white-space:nowrap" class="srow-ctrl">Email ↗</a>
     </div>
 
+<div id="byteCustomModal" class="hidden" style="
+  position:fixed;inset:0;z-index:100000;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:env(safe-area-inset-bottom,0px)
+" onclick="if(event.target===this){window.doByteClose&&window.doByteClose()}">
+  <div style="
+    background:var(--bg,#09090f);
+    border-radius:24px 24px 0 0;
+    border:1px solid rgba(255,255,255,0.08);
+    border-bottom:none;
+    width:100%;max-width:480px;
+    max-height:90vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+    display:flex;flex-direction:column;
+    animation:bcSheetIn 0.38s cubic-bezier(0.32,0.72,0,1)
+  ">
+
     <!-- Header -->
     <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 22px 0">
       <div>
@@ -2434,7 +2454,6 @@ ByteTutorial.init();
       ">Save Byte</button>
     </div>
   </div>
-</div>
 
 <style>
   /* Byte customiser styles */
@@ -2574,7 +2593,7 @@ ByteTutorial.init();
   #byteCustomSave:active { transform:translateY(0); }
 </style>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function() {
   /* ─── Data ─────────────────────────────────────────────────── */
   var COLORS = {
@@ -2809,9 +2828,6 @@ ByteTutorial.init();
     var modal = document.getElementById("byteCustomModal");
     modal.classList.remove("hidden");
     document.body.style.overflow = "hidden";
-    // Re-animate sheet
-    var sheet = document.getElementById("bcSheet");
-    if (sheet) { sheet.style.animation="none"; void sheet.offsetWidth; sheet.style.animation="bcSheetIn 0.38s cubic-bezier(0.32,0.72,0,1)"; }
     switchTab("color");
     renderColors();
     renderHats();
@@ -2824,6 +2840,7 @@ ByteTutorial.init();
     document.body.style.overflow = "";
     window._byteCustom = loadCur();
   }
+  window.doByteClose = doClose;
 
 })();
 </script>

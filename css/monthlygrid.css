@@ -1,0 +1,257 @@
+/* =====================================================
+   THEME VARIABLES
+===================================================== */
+body[data-theme="light"] {
+  --bg-panel: #ffffff;
+  --bg-card: #f2f2f2;
+  --bg-grid: #f4f4f8;
+  --text-main: #111;
+  --text-muted: #555;
+  --border: #ddd;
+  --primary: #10b981;
+}
+body[data-theme="dark"] {
+  --bg-panel: #0b0d14;
+  --bg-card: #121522;
+  --bg-grid: #0e111b;
+  --text-main: #eaeaff;
+  --text-muted: #9aa4ff;
+  --border: #2a2f55;
+  --primary: #10b981;
+}
+body[data-theme="blue"] {
+  --bg-panel: #050b1e;
+  --bg-card: #0a1433;
+  --bg-grid: #07102a;
+  --text-main: #dbe4ff;
+  --text-muted: #7fa2ff;
+  --border: #1c2c66;
+  --primary: #10b981;
+}
+
+/* =====================================================
+   HABITS LIST WRAPPER
+===================================================== */
+.month-grid-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg-grid);
+}
+
+/* =====================================================
+   HABIT CARD
+===================================================== */
+.habit-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+.habit-card:active {
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+/* Top row: name + controls */
+.habit-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px 8px;
+}
+.habit-card-emoji {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  width: 32px;
+  text-align: center;
+}
+.habit-card-name {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.habit-card-streak {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #f97316;
+  background: rgba(249,115,22,0.1);
+  border-radius: 20px;
+  padding: 2px 8px;
+  flex-shrink: 0;
+}
+.habit-card-pct {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.delete-task {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  opacity: 0.4;
+  padding: 4px;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.delete-task:hover { opacity: 1; }
+
+/* Progress bar */
+.habit-progress-bar-wrap {
+  height: 3px;
+  background: var(--border);
+  margin: 0 14px 10px;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.habit-progress-bar-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+/* Day bubbles row */
+.habit-days-scroll {
+  overflow-x: auto;
+  padding: 0 14px 12px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.habit-days-scroll::-webkit-scrollbar { display: none; }
+
+.habit-days-track {
+  display: flex;
+  gap: 5px;
+  width: max-content;
+}
+
+/* Individual day bubble */
+.day-bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.day-bubble-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.day-bubble-dot {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  position: relative;
+}
+.day-bubble-dot.today-dot {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.18);
+}
+.day-bubble-dot.done-dot {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.day-bubble-dot.missed-dot {
+  background: rgba(239,68,68,0.15);
+  border-color: rgba(239,68,68,0.4);
+  color: #ef4444;
+}
+.day-bubble-dot.locked-dot {
+  opacity: 0.25;
+  cursor: default;
+}
+.day-bubble:not(.locked-bubble):active .day-bubble-dot {
+  transform: scale(0.88);
+}
+
+/* Today bubble label highlight */
+.day-bubble.today-bubble .day-bubble-label {
+  color: var(--primary);
+}
+
+/* Empty state */
+.habits-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+}
+.habits-empty-icon { font-size: 2.5rem; margin-bottom: 10px; }
+.habits-empty-title { font-size: 1rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
+.habits-empty-sub { font-size: 0.82rem; line-height: 1.5; }
+
+/* =====================================================
+   DAILY COMPLETION RING (unchanged)
+===================================================== */
+.daily-ring {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 20px auto;
+}
+.daily-ring svg { transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: #1e1e1e; stroke-width: 12; }
+.ring-progress {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke-dasharray: 314;
+  stroke-dashoffset: 314;
+  transition: stroke-dashoffset 0.5s ease;
+}
+.ring-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.ring-text span { font-size: 1.6rem; }
+.ring-text small { font-size: 0.85rem; opacity: 0.7; }
+
+/* =====================================================
+   LOGOUT BUTTON
+===================================================== */
+.logout-btn {
+  margin-left: auto;
+  padding: 0.55rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background: #ff5252;
+  transition: all 0.25s ease;
+}
+.logout-btn:hover { transform: translateY(-2px); }
