@@ -5020,6 +5020,19 @@ document.getElementById("saveHabit").onclick = () => {
   awardLoginXP();
   checkMissedHabitXPPenalty();
 
+
+  // ── Mobile grid: expose internals ──────────────────────────
+  window._currentMonthData  = () => ensureMonth();
+  window._currentYear       = () => currentYear;
+  window._currentMonth      = () => currentMonth;
+  window._cycleStatus       = (task, idx) => cycleStatus(task, idx);
+  window._deleteTask        = (id) => deleteTask(id);
+  window._getNotes          = () => getNotes ? getNotes() : {};
+  window._getHabitStrength  = (task) => getHabitStrength(task);
+  window._isHabitFrozenToday= (task) => isHabitFrozenToday(task);
+  window._FREEZE_COST       = FREEZE_COST;
+  // ────────────────────────────────────────────────────────────
+
   render();
   renderShieldBadge();
   setTimeout(checkAndAwardShield, 800);
