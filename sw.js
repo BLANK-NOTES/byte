@@ -48,9 +48,9 @@ const PRECACHE = [
   `${BASE}/habitsecurity.js`,
   `${BASE}/notifications.js`,
   `${BASE}/manifest.json`,
-  `${BASE}/icons/icon-192.png`,
-  `${BASE}/icons/icon-512.png`,
-  `${BASE}/icons/icon-180.png`,
+  `${BASE}/icon/icon-192.png`,
+  `${BASE}/icon/icon-512.png`,
+  `${BASE}/icon-180.png`,
 ];
 
 /* ── Install: precache all app files ── */
@@ -128,7 +128,7 @@ self.addEventListener("push", (e) => {
   e.waitUntil(
     self.registration.showNotification(data.title || "Habit Reminder", {
       body:    data.body  || "Time to check in on your habits!",
-      icon:    data.icon  || `${BASE}/icons/icon-192.png`,
+      icon:    data.icon  || `${BASE}/icon/icon-192.png`,
       badge:   data.badge || "",
       tag:     data.tag   || "habit-reminder",
       data:    { url: data.url || OFFLINE },
