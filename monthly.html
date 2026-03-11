@@ -3861,12 +3861,11 @@ document.addEventListener('DOMContentLoaded', () => { renderCustomCatBtns(); });
   </div>
 </div>
 
+
 <style id="mobileGridFix">
 @media (max-width: 820px) {
-  /* Hide old grid completely */
   #gridWrapper { display: none !important; }
 
-  /* Mobile card grid container */
   #mobileGrid {
     display: flex;
     flex-direction: column;
@@ -3874,108 +3873,367 @@ document.addEventListener('DOMContentLoaded', () => { renderCustomCatBtns(); });
     padding: 8px 10px 100px;
   }
 
+  /* Day nav bar */
+  #mgDayNav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 4px 4px;
+    gap: 8px;
+  }
+  #mgDayNav button {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border, #2a2f55);
+    border-radius: 10px;
+    color: var(--text-main, #eaeaff);
+    width: 40px; height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.12s;
+  }
+  #mgDayNav button:active { background: rgba(255,255,255,0.15); }
+  #mgDayNav button:disabled { opacity: 0.25; cursor: not-allowed; }
+  #mgDayLabel {
+    flex: 1;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: var(--text-main, #eaeaff);
+    letter-spacing: 0.02em;
+  }
+  #mgDayLabel small {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--text-muted, #9aa4ff);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  /* Cards */
+  #mgCards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Swipe transition */
+    transition: transform 0.22s cubic-bezier(0.4,0,0.2,1), opacity 0.18s ease;
+  }
+  #mgCards.mg-slide-left  { transform: translateX(-30px); opacity: 0; }
+  #mgCards.mg-slide-right { transform: translateX(30px);  opacity: 0; }
+
   .mg-card {
     background: var(--bg-card, #121522);
     border: 1px solid var(--border, #2a2f55);
     border-radius: 18px;
-    padding: 14px 15px 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-  }
-
-  .mg-top {
+    padding: 14px 15px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    width: 100%;
+    gap: 12px;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.3);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.12s;
   }
+  .mg-card:active { background: var(--bg-panel, #0b0d14); }
 
+  /* Left: check button */
+  .mg-check {
+    flex-shrink: 0;
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    border: 2.5px solid var(--border, #2a2f55);
+    background: rgba(255,255,255,0.03);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem;
+    transition: all 0.15s;
+  }
+  .mg-check.mgc-done   { background: rgba(74,222,128,0.15); border-color: rgba(74,222,128,0.7); }
+  .mg-check.mgc-failed { background: rgba(248,113,113,0.12); border-color: rgba(248,113,113,0.5); }
+  .mg-check.mgc-locked { opacity: 0.2; }
+
+  /* Middle: habit info */
+  .mg-info { flex: 1; min-width: 0; }
   .mg-name {
-    flex: 1;
-    font-size: 1rem;
+    font-size: 0.98rem;
     font-weight: 700;
     color: var(--text-main, #eaeaff);
     line-height: 1.3;
     word-break: break-word;
-    min-width: 0;
+    margin-bottom: 4px;
   }
-
-  .mg-badge { font-size: 1rem; flex-shrink: 0; cursor: help; }
-
+  .mg-meta {
+    display: flex; gap: 5px; align-items: center; flex-wrap: wrap;
+  }
+  .mg-badge { font-size: 0.88rem; cursor: help; }
   .mg-strength {
-    font-size: 0.58rem;
-    font-weight: 800;
-    padding: 2px 7px;
-    border-radius: 6px;
+    font-size: 0.58rem; font-weight: 800;
+    padding: 2px 6px; border-radius: 6px;
     white-space: nowrap;
-    flex-shrink: 0;
   }
+  .mg-status-txt {
+    font-size: 0.68rem; font-weight: 700;
+    color: var(--text-muted, #9aa4ff);
+  }
+  .mg-status-txt.done   { color: #4ade80; }
+  .mg-status-txt.failed { color: #f87171; }
 
+  /* Right: action buttons */
+  .mg-actions {
+    display: flex; flex-direction: column; gap: 6px; flex-shrink: 0;
+  }
   .mg-btn {
-    flex-shrink: 0;
-    background: rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.05);
     border: 1px solid var(--border, #2a2f55);
-    border-radius: 10px;
-    width: 40px; height: 40px;
+    border-radius: 9px;
+    width: 36px; height: 36px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem; cursor: pointer;
+    font-size: 1rem; cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .mg-btn:active { background: rgba(255,255,255,0.15); transform: scale(0.9); }
-
-  .mg-days { display: flex; gap: 10px; }
-
-  .mg-day {
-    flex: 1;
-    min-height: 78px;
-    border-radius: 14px;
-    border: 2px solid var(--border, #2a2f55);
-    background: rgba(255,255,255,0.02);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 3px; cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    transition: transform 0.1s;
-    position: relative; overflow: hidden;
-  }
-  .mg-day:active:not(.mgd-locked) { transform: scale(0.93); }
-
-  .mg-day-lbl {
-    font-size: 0.58rem; font-weight: 900;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--text-muted, #9aa4ff); line-height: 1;
-  }
-  .mg-day-icon { font-size: 2rem; line-height: 1; }
-  .mg-day-word { font-size: 0.62rem; font-weight: 700; color: var(--text-muted, #9aa4ff); }
-
-  .mgd-today { border-color: var(--primary,#4CAF50)!important; background: rgba(76,175,80,0.1)!important; }
-  .mgd-today .mg-day-lbl { color: var(--primary,#4CAF50)!important; }
-
-  .mgd-done { background: rgba(74,222,128,0.14)!important; border-color: rgba(74,222,128,0.7)!important; }
-  .mgd-done .mg-day-lbl, .mgd-done .mg-day-word { color: #4ade80!important; }
-
-  .mgd-failed { background: rgba(248,113,113,0.12)!important; border-color: rgba(248,113,113,0.6)!important; }
-  .mgd-failed .mg-day-lbl, .mgd-failed .mg-day-word { color: #f87171!important; }
-
-  .mgd-locked { opacity: 0.2!important; cursor: not-allowed!important; }
+  .mg-btn:active { background: rgba(255,255,255,0.14); transform: scale(0.9); }
 
   .mg-note-dot {
-    position: absolute; top: 6px; right: 7px;
     width: 7px; height: 7px; border-radius: 50%;
     background: var(--primary, #4CAF50);
+    display: inline-block; margin-left: 4px;
   }
 }
 </style>
 
 <script>
-/* ── INLINE MOBILE GRID ── runs after monthly.js ── */
 (function() {
   if (window.innerWidth > 820) return;
 
-  var DOWS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  var DOWS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  /* viewDayIndex: which day (0-based) we're currently viewing */
+  var viewDayIndex = -1; /* -1 = "not set yet, use today" */
+
+  /* ── Touch/swipe state ── */
+  var touchStartX = 0, touchStartY = 0;
+
+  function getTodayIndex() {
+    var td = new Date();
+    var mon = window._currentMonth ? window._currentMonth() : td.getMonth();
+    var yr  = window._currentYear  ? window._currentYear()  : td.getFullYear();
+    var isCur = (yr === td.getFullYear() && mon === td.getMonth());
+    if (isCur) return td.getDate() - 1;
+    /* past/future month — default to last day */
+    return new Date(yr, mon+1, 0).getDate() - 1;
+  }
+
+  function getDaysInViewMonth() {
+    var mon = window._currentMonth ? window._currentMonth() : new Date().getMonth();
+    var yr  = window._currentYear  ? window._currentYear()  : new Date().getFullYear();
+    return new Date(yr, mon+1, 0).getDate();
+  }
+
+  function isViewingToday() {
+    var td = new Date();
+    var mon = window._currentMonth ? window._currentMonth() : td.getMonth();
+    var yr  = window._currentYear  ? window._currentYear()  : td.getFullYear();
+    return yr === td.getFullYear() && mon === td.getMonth() && viewDayIndex === td.getDate() - 1;
+  }
+
+  function getDayLabel() {
+    var mon = window._currentMonth ? window._currentMonth() : new Date().getMonth();
+    var yr  = window._currentYear  ? window._currentYear()  : new Date().getFullYear();
+    var td  = new Date();
+    var dayNum = viewDayIndex + 1;
+    var date = new Date(yr, mon, dayNum);
+    var isCurMon = (yr === td.getFullYear() && mon === td.getMonth());
+
+    var top = '';
+    if (isCurMon && viewDayIndex === td.getDate()-1)    top = 'TODAY — ';
+    else if (isCurMon && viewDayIndex === td.getDate()-2) top = 'YESTERDAY — ';
+
+    return {
+      main: top + DOWS[date.getDay()] + ', ' + dayNum + ' ' + MONTHS[mon],
+      sub:  isCurMon && viewDayIndex === td.getDate()-1 ? 'Tap a habit to check it off' : ''
+    };
+  }
+
+  function buildNav() {
+    var existing = document.getElementById('mgDayNav');
+    if (existing) existing.remove();
+
+    var nav = document.createElement('div');
+    nav.id = 'mgDayNav';
+
+    var prevBtn = document.createElement('button');
+    prevBtn.textContent = '‹';
+    prevBtn.title = 'Previous day';
+    if (viewDayIndex <= 0) prevBtn.disabled = true;
+    prevBtn.onclick = function() { slideToDay(viewDayIndex - 1); };
+
+    var lbl = document.createElement('div');
+    lbl.id = 'mgDayLabel';
+    var info = getDayLabel();
+    lbl.innerHTML = info.main + (info.sub ? '<small>'+info.sub+'</small>' : '');
+
+    var nextBtn = document.createElement('button');
+    nextBtn.textContent = '›';
+    nextBtn.title = 'Next day';
+    var maxDay = getDaysInViewMonth() - 1;
+    /* Don't allow going to future days */
+    var td = new Date();
+    var mon = window._currentMonth ? window._currentMonth() : td.getMonth();
+    var yr  = window._currentYear  ? window._currentYear()  : td.getFullYear();
+    var isCurMon = (yr === td.getFullYear() && mon === td.getMonth());
+    var todayIdx = isCurMon ? td.getDate()-1 : maxDay;
+    if (viewDayIndex >= todayIdx) nextBtn.disabled = true;
+    nextBtn.onclick = function() { slideToDay(viewDayIndex + 1); };
+
+    nav.appendChild(prevBtn);
+    nav.appendChild(lbl);
+    nav.appendChild(nextBtn);
+
+    var box = document.getElementById('mobileGrid');
+    if (box) box.insertBefore(nav, box.firstChild);
+  }
+
+  function slideToDay(newIdx, direction) {
+    var cards = document.getElementById('mgCards');
+    if (!cards) { viewDayIndex = newIdx; build(); return; }
+
+    var dir = direction || (newIdx > viewDayIndex ? 'left' : 'right');
+    cards.classList.add('mg-slide-' + dir);
+
+    setTimeout(function() {
+      viewDayIndex = newIdx;
+      buildCards();
+      buildNav();
+      cards.classList.remove('mg-slide-left', 'mg-slide-right');
+      cards.style.opacity = '0';
+      cards.style.transform = dir === 'left' ? 'translateX(30px)' : 'translateX(-30px)';
+      setTimeout(function() {
+        cards.style.transition = 'transform 0.22s cubic-bezier(0.4,0,0.2,1), opacity 0.18s ease';
+        cards.style.transform = '';
+        cards.style.opacity = '';
+      }, 20);
+    }, 180);
+  }
+
+  function buildCards() {
+    var month = window._currentMonthData && window._currentMonthData();
+    if (!month || !month.tasks) return;
+
+    var yr  = window._currentYear  ? window._currentYear()  : new Date().getFullYear();
+    var mon = window._currentMonth ? window._currentMonth() : new Date().getMonth();
+    var notes = window._getNotes   ? window._getNotes()     : {};
+    var di = viewDayIndex;
+    var FREEZE_COST = window._FREEZE_COST || 30;
+    var td = new Date();
+    var isCurMon = (yr === td.getFullYear() && mon === td.getMonth());
+    var isToday  = isCurMon && di === td.getDate()-1;
+
+    var cards = document.getElementById('mgCards');
+    if (!cards) return;
+    cards.innerHTML = '';
+
+    month.tasks.forEach(function(task) {
+      var status = (task.days && task.days[di]) || 'unmarked';
+      var locked = status === 'locked';
+      var frozen = window._isHabitFrozenToday && window._isHabitFrozenToday(task);
+
+      var card = document.createElement('div');
+      card.className = 'mg-card';
+
+      /* ── Check button ── */
+      var chk = document.createElement('div');
+      chk.className = 'mg-check' + (locked ? ' mgc-locked' : status === 'done' ? ' mgc-done' : status === 'failed' ? ' mgc-failed' : '');
+      chk.textContent = locked ? '—' : status === 'done' ? '✅' : status === 'failed' ? '❌' : '○';
+
+      if (!locked) {
+        chk.style.cursor = 'pointer';
+        chk.onclick = function(e) {
+          e.stopPropagation();
+          window._cycleStatus && window._cycleStatus(task, di);
+          setTimeout(function() { buildCards(); buildNav(); }, 80);
+        };
+      }
+      card.appendChild(chk);
+
+      /* ── Info ── */
+      var info = document.createElement('div');
+      info.className = 'mg-info';
+
+      var nameEl = document.createElement('div');
+      nameEl.className = 'mg-name';
+      nameEl.textContent = task.name || 'Habit';
+      info.appendChild(nameEl);
+
+      var meta = document.createElement('div');
+      meta.className = 'mg-meta';
+
+      /* strength */
+      var str = window._getHabitStrength && window._getHabitStrength(task);
+      if (str) {
+        var sb = document.createElement('span');
+        sb.className = 'mg-strength ' + (str.cls||'');
+        sb.textContent = str.label;
+        meta.appendChild(sb);
+      }
+
+      /* grace/skull */
+      var gLeft = (task.graceLimit||1) - (task.graceUsed||0);
+      var gb = document.createElement('span');
+      gb.className = 'mg-badge';
+      gb.textContent = gLeft > 0 ? '🛡️' : '💀';
+      gb.style.opacity = gLeft > 0 ? '0.85' : '0.5';
+      gb.title = gLeft > 0 ? "Grace available" : "Grace used";
+      meta.appendChild(gb);
+
+      /* frozen badge */
+      if (frozen) {
+        var fb = document.createElement('span');
+        fb.className = 'mg-badge'; fb.textContent = '❄️'; fb.title = 'Frozen today';
+        meta.appendChild(fb);
+      }
+
+      /* note dot */
+      var nk = task.id + '_' + di;
+      if (notes[nk]) {
+        var dot = document.createElement('span'); dot.className = 'mg-note-dot';
+        meta.appendChild(dot);
+      }
+
+      /* status text */
+      var stxt = document.createElement('span');
+      stxt.className = 'mg-status-txt' + (status === 'done' ? ' done' : status === 'failed' ? ' failed' : '');
+      stxt.textContent = locked ? 'Off day' : status === 'done' ? 'Done ✓' : status === 'failed' ? 'Missed' : isToday ? 'Tap ○ to check off' : 'Not marked';
+      meta.appendChild(stxt);
+
+      info.appendChild(meta);
+      card.appendChild(info);
+
+      /* ── Action buttons ── */
+      var acts = document.createElement('div');
+      acts.className = 'mg-actions';
+
+      if (isCurMon && !locked) {
+        var fBtn = document.createElement('button');
+        fBtn.className = 'mg-btn'; fBtn.textContent = '❄️';
+        fBtn.title = frozen ? 'Already frozen' : 'Freeze ('+FREEZE_COST+'💎)';
+        if (frozen) fBtn.style.opacity = '0.3';
+        fBtn.onclick = function(e) { e.stopPropagation(); window._buyHabitFreeze && window._buyHabitFreeze(task.id); };
+        acts.appendChild(fBtn);
+      }
+
+      var del = document.createElement('button');
+      del.className = 'mg-btn'; del.textContent = '🗑️'; del.title = 'Delete';
+      del.onclick = function(e) { e.stopPropagation(); window._deleteTask && window._deleteTask(task.id); };
+      acts.appendChild(del);
+
+      card.appendChild(acts);
+      cards.appendChild(card);
+    });
+  }
 
   function build() {
     var month = window._currentMonthData && window._currentMonthData();
@@ -3984,23 +4242,8 @@ document.addEventListener('DOMContentLoaded', () => { renderCustomCatBtns(); });
       return;
     }
 
-    var year  = window._currentYear  ? window._currentYear()  : new Date().getFullYear();
-    var mon   = window._currentMonth ? window._currentMonth() : new Date().getMonth();
-    var notes = window._getNotes     ? window._getNotes()     : {};
-
-    var td = new Date();
-    var tDay = td.getDate(), tMon = td.getMonth(), tYear = td.getFullYear();
-    var isCur = (year === tYear && mon === tMon);
-
-    var days = [];
-    if (isCur) {
-      days = tDay > 1 ? [tDay-2, tDay-1] : [0];
-    } else {
-      var dim = new Date(year, mon+1, 0).getDate();
-      days = dim > 1 ? [dim-2, dim-1] : [0];
-    }
-
-    var FREEZE_COST = window._FREEZE_COST || 30;
+    /* Set initial day to today */
+    if (viewDayIndex < 0) viewDayIndex = getTodayIndex();
 
     var box = document.getElementById('mobileGrid');
     if (!box) {
@@ -4012,132 +4255,61 @@ document.addEventListener('DOMContentLoaded', () => { renderCustomCatBtns(); });
     }
     box.innerHTML = '';
 
-    month.tasks.forEach(function(task) {
-      var card = document.createElement('div');
-      card.className = 'mg-card';
+    /* Nav bar */
+    var nav = document.createElement('div');
+    nav.id = 'mgDayNav';
+    box.appendChild(nav);
 
-      /* ── name row ── */
-      var top = document.createElement('div');
-      top.className = 'mg-top';
+    /* Cards container */
+    var cardsEl = document.createElement('div');
+    cardsEl.id = 'mgCards';
+    box.appendChild(cardsEl);
 
-      var nameEl = document.createElement('div');
-      nameEl.className = 'mg-name';
-      nameEl.textContent = task.name || 'Habit';
-      top.appendChild(nameEl);
-
-      /* strength */
-      var str = window._getHabitStrength && window._getHabitStrength(task);
-      if (str) {
-        var sb = document.createElement('span');
-        sb.className = 'mg-strength ' + (str.cls||'');
-        sb.textContent = str.label; sb.title = str.tip||'';
-        top.appendChild(sb);
-      }
-
-      /* grace/skull */
-      var gLeft = (task.graceLimit||1) - (task.graceUsed||0);
-      var gb = document.createElement('span');
-      gb.className = 'mg-badge';
-      gb.textContent = gLeft > 0 ? '🛡️' : '💀';
-      gb.style.opacity = gLeft > 0 ? '0.9' : '0.55';
-      gb.title = gLeft > 0 ? "Grace: 1 miss won't break streak" : "Grace used!";
-      top.appendChild(gb);
-
-      /* freeze badge */
-      var frozen = window._isHabitFrozenToday && window._isHabitFrozenToday(task);
-      if (frozen) {
-        var fb = document.createElement('span');
-        fb.className = 'mg-badge'; fb.textContent = '❄️'; fb.title = 'Frozen today';
-        top.appendChild(fb);
-      }
-
-      /* freeze button */
-      if (isCur) {
-        var fBtn = document.createElement('button');
-        fBtn.className = 'mg-btn'; fBtn.textContent = '❄️';
-        fBtn.title = frozen ? 'Already frozen' : 'Freeze ('+FREEZE_COST+'💎)';
-        if (frozen) fBtn.style.opacity = '0.3';
-        fBtn.onclick = function(e) { e.stopPropagation(); window._buyHabitFreeze && window._buyHabitFreeze(task.id); };
-        top.appendChild(fBtn);
-      }
-
-      /* delete */
-      var del = document.createElement('button');
-      del.className = 'mg-btn'; del.textContent = '🗑️'; del.title = 'Delete';
-      del.onclick = function(e) { e.stopPropagation(); window._deleteTask && window._deleteTask(task.id); };
-      top.appendChild(del);
-
-      card.appendChild(top);
-
-      /* ── day buttons ── */
-      var dRow = document.createElement('div');
-      dRow.className = 'mg-days';
-
-      days.forEach(function(di) {
-        var dayNum  = di + 1;
-        var isToday = isCur && dayNum === tDay;
-        var isYest  = isCur && dayNum === tDay - 1;
-        var status  = (task.days && task.days[di]) || 'unmarked';
-        var locked  = status === 'locked';
-        var dow     = DOWS[new Date(year, mon, dayNum).getDay()];
-
-        var btn = document.createElement('div');
-        btn.className = 'mg-day';
-
-        var lbl = document.createElement('div');
-        lbl.className = 'mg-day-lbl';
-        lbl.textContent = isToday ? 'TODAY' : isYest ? 'YESTERDAY' : dow;
-
-        var ico = document.createElement('div');
-        ico.className = 'mg-day-icon';
-        ico.textContent = locked ? '—' : status==='done' ? '✅' : status==='failed' ? '❌' : isToday ? '⭕' : '○';
-
-        var word = document.createElement('div');
-        word.className = 'mg-day-word';
-        word.textContent = locked ? 'Off day' : status==='done' ? 'Done ✓' : status==='failed' ? 'Missed' : 'Tap';
-
-        btn.appendChild(lbl); btn.appendChild(ico); btn.appendChild(word);
-
-        /* note dot */
-        var nk = task.id + '_' + di;
-        if (notes[nk]) {
-          var dot = document.createElement('div'); dot.className = 'mg-note-dot';
-          btn.appendChild(dot);
-        }
-
-        if (isToday && !locked)  btn.classList.add('mgd-today');
-        if (status === 'done')   btn.classList.add('mgd-done');
-        if (status === 'failed') btn.classList.add('mgd-failed');
-        if (locked)              btn.classList.add('mgd-locked');
-
-        if (!locked) {
-          btn.onclick = function() {
-            window._cycleStatus && window._cycleStatus(task, di);
-            setTimeout(build, 80);
-          };
-        }
-
-        dRow.appendChild(btn);
-      });
-
-      card.appendChild(dRow);
-      box.appendChild(card);
-    });
+    buildCards();
+    buildNav();
+    attachSwipe(box);
   }
 
-  /* Watch for grid renders */
+  /* ── Swipe handler ── */
+  function attachSwipe(el) {
+    el.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, {passive: true});
+
+    el.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      var dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return; /* not a horizontal swipe */
+
+      var td = new Date();
+      var mon = window._currentMonth ? window._currentMonth() : td.getMonth();
+      var yr  = window._currentYear  ? window._currentYear()  : td.getFullYear();
+      var isCurMon = (yr === td.getFullYear() && mon === td.getMonth());
+      var maxFwd = isCurMon ? td.getDate()-1 : getDaysInViewMonth()-1;
+
+      if (dx < 0 && viewDayIndex < maxFwd) {
+        slideToDay(viewDayIndex + 1, 'left');   /* swipe left = next day */
+      } else if (dx > 0 && viewDayIndex > 0) {
+        slideToDay(viewDayIndex - 1, 'right');  /* swipe right = prev day */
+      }
+    }, {passive: true});
+  }
+
+  /* ── Watch for grid re-renders (month change etc) ── */
   function watchGrid() {
     var gw = document.getElementById('gridWrapper');
     if (!gw) { setTimeout(watchGrid, 300); return; }
-    new MutationObserver(function() { setTimeout(build, 80); }).observe(gw, {childList:true});
+    new MutationObserver(function() {
+      viewDayIndex = getTodayIndex(); /* reset to today on month change */
+      setTimeout(build, 80);
+    }).observe(gw, {childList: true});
     build();
   }
 
-  /* Start after monthly.js finishes */
   var orig = window._pageReady;
-  window._pageReady = function() { if(orig) orig(); setTimeout(build, 300); };
+  window._pageReady = function() { if (orig) orig(); setTimeout(build, 300); };
 
-  /* Also try immediately after DOM ready */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() { setTimeout(watchGrid, 800); });
   } else {
