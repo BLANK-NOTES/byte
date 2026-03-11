@@ -26,15 +26,6 @@
   <link rel="stylesheet" href="css/monthly-grid.css" />
   <link rel="stylesheet" href="css/charts.css" />
   <link rel="stylesheet" href="css/monthly-dailystreak.css" />
-  <link rel="stylesheet" href="css/mobile-grid-fix.css" />
-  <!-- PWA: App identity + icon -->
-<link rel="manifest" href="/byte/manifest.json" />
-<link rel="apple-touch-icon" href="/byte/icon/icon-180.png" />
-<link rel="icon" type="image/png" href="/byte/icon/favicon.png" />
-<meta name="theme-color" content="#4CAF50" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Habits" />
 
   <style>
     body {
@@ -2214,6 +2205,134 @@
       };
     })();
   </script>
+
+<style id="mobileGridFix">
+@media (max-width: 820px) {
+
+  /* ── Make the grid wrapper scroll horizontally ── */
+  .month-grid-wrapper,
+  #gridWrapper {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 4px !important;
+  }
+
+  /* ── Each row: fixed columns so names and cells are readable ── */
+  .grid-row {
+    grid-template-columns: 150px repeat(31, 38px) !important;
+    gap: 2px !important;
+    min-width: max-content !important;
+  }
+
+  /* ── Sticky task name column ── */
+  .grid-cell.task-name,
+  .grid-cell.task-label {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 5 !important;
+    background: var(--bg-card, #121522) !important;
+    box-shadow: 3px 0 8px rgba(0,0,0,0.4) !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
+    width: 150px !important;
+    padding: 6px 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    overflow: visible !important;
+    flex-wrap: nowrap !important;
+    min-height: 48px !important;
+  }
+
+  /* ── Habit name text — show fully, no truncation ── */
+  .grid-cell.task-name > span:first-child,
+  .task-name > span:first-child {
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    color: var(--text-main, #eaeaff) !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    word-break: break-word !important;
+    line-height: 1.2 !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  /* ── Make ALL badges and buttons visible ── */
+  .grace-badge,
+  .freeze-badge,
+  .strength-badge {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    font-size: 0.75rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* ── Delete and freeze buttons ── */
+  .task-name button,
+  .delete-task,
+  .freeze-task-btn {
+    display: inline-flex !important;
+    visibility: visible !important;
+    font-size: 0.8rem !important;
+    padding: 2px !important;
+    flex-shrink: 0 !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+
+  /* ── Day cells — bigger touch targets ── */
+  .grid-cell.status,
+  .grid-header .grid-cell.day,
+  .grid-header .day {
+    width: 38px !important;
+    min-width: 38px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    font-size: 0.78rem !important;
+    padding: 2px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* ── Header sticky too ── */
+  .grid-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+    min-width: max-content !important;
+  }
+
+  /* ── Header task label ── */
+  .grid-header .grid-cell.task-label {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 11 !important;
+    background: var(--bg-panel, #0b0d14) !important;
+    min-width: 150px !important;
+    width: 150px !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* ── Today highlight ── */
+  .grid-cell.today {
+    background: rgba(76,175,80,0.25) !important;
+    box-shadow: inset 0 0 0 2px var(--primary, #4CAF50) !important;
+  }
+
+  /* ── Shield badge in header ── */
+  #shieldBadge {
+    display: inline-flex !important;
+    visibility: visible !important;
+    font-size: 0.72rem !important;
+    padding: 4px 8px !important;
+  }
+}
+</style>
 </head>
 
 <body data-theme="dark">
@@ -3868,6 +3987,5 @@ document.addEventListener('DOMContentLoaded', () => { renderCustomCatBtns(); });
     </div>
   </div>
 </div>
-<script src="js/mobile-grid.js"></script>
 </body>
 </html>
