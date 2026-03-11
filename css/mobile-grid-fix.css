@@ -1,0 +1,168 @@
+/* =====================================================
+   MOBILE GRID FIX — drop this into your css/ folder
+   and add this line to monthly.html <head>:
+   <link rel="stylesheet" href="css/mobile-grid-fix.css" />
+   (add it AFTER your other CSS links)
+===================================================== */
+
+/* ── 1. Make the grid scroll horizontally ── */
+.month-grid-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+}
+
+/* ── 2. Force the grid to be wide enough to show all 31 days ──
+   Without this, columns collapse to nearly 0px on narrow screens */
+.grid-row,
+.month-grid {
+  min-width: max-content;
+}
+
+/* ── 3. Sticky task name column ──
+   This is the key fix — the habit name stays pinned on the left
+   while the day cells scroll underneath it */
+.task-name,
+.task-label,
+.task-label-cell,
+.task-cell {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: var(--bg-grid, var(--bg-main, #0e111b));
+  /* Match the grid background so cells don't bleed through */
+}
+
+/* Header task cell needs higher z-index to sit above data cells */
+.grid-header .task-name,
+.grid-header .task-label,
+.grid-header .task-cell {
+  z-index: 4;
+}
+
+/* ── 4. Reasonable cell sizes for touch ──
+   28px is too small to tap accurately on mobile */
+@media (max-width: 768px) {
+  .grid-cell,
+  .day-cell,
+  .status-cell {
+    width: 34px !important;
+    min-width: 34px !important;
+    height: 34px !important;
+    font-size: 0.65rem;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Day number headers */
+  .day-header,
+  .grid-header .grid-cell,
+  .grid-header .day-cell {
+    width: 34px !important;
+    min-width: 34px !important;
+    height: 28px !important;
+    font-size: 0.6rem;
+    padding: 4px 2px;
+  }
+
+  /* Task name column — slightly narrower on mobile is fine */
+  .task-name,
+  .task-label,
+  .task-label-cell,
+  .task-cell {
+    min-width: 120px !important;
+    max-width: 140px !important;
+    width: 140px !important;
+    font-size: 0.78rem;
+    padding: 0 10px;
+    /* Subtle right shadow to hint that the grid scrolls */
+    box-shadow: 3px 0 8px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Clip long habit names instead of wrapping */
+  .task-name span,
+  .habit-card-name,
+  .task-label span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+  }
+
+  /* Grid row height — match cell size */
+  .grid-row {
+    min-height: 34px;
+  }
+
+  /* Tighter dashboard padding on mobile */
+  .dashboard {
+    padding: 10px 8px;
+  }
+
+  /* Wrap the header stats row so it doesn't overflow */
+  .month-stats {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding-bottom: 4px;
+  }
+
+  /* Shrink each stat pill */
+  .month-stats .stat {
+    flex-shrink: 0;
+    padding: 3px 6px;
+  }
+
+  .month-stats .stat label {
+    font-size: 0.6rem;
+  }
+
+  .month-stats .stat strong {
+    font-size: 0.88rem;
+  }
+
+  /* Nav buttons — horizontal scroll row, don't wrap */
+  .header-actions {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap !important;
+    padding-bottom: 4px;
+    gap: 6px;
+  }
+
+  .header-actions .nav-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* XP bar — hide label on very small screens */
+  .xp-bar-label {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even tighter on small phones */
+  .task-name,
+  .task-label,
+  .task-label-cell,
+  .task-cell {
+    min-width: 100px !important;
+    max-width: 110px !important;
+    width: 110px !important;
+    font-size: 0.72rem;
+  }
+
+  .grid-cell,
+  .day-cell,
+  .status-cell {
+    width: 30px !important;
+    min-width: 30px !important;
+    height: 30px !important;
+  }
+
+  .month-title h1 {
+    font-size: 1rem;
+  }
+}
