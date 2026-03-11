@@ -3,14 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- PWA: App identity + icon -->
-<link rel="manifest" href="/byte/manifest.json" />
-<link rel="apple-touch-icon" href="/byte/icon/icon-180.png" />
-<link rel="icon" type="image/png" href="/byte/icon/favicon.png" />
-<meta name="theme-color" content="#4CAF50" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Habits" />
 <title>Settings · Habit Tracker</title>
 <script>
 // Apply theme INSTANTLY before any CSS renders — eliminates flash
@@ -23,7 +15,7 @@
 })();
 </script>
 <script src="habitSecurity.js"></script>
-<script src="habitPremium.js"></script>
+<script src="habitpremium.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -2349,55 +2341,58 @@ ByteTutorial.init();
       <div class="srow-icon">✉️</div>
       <div class="srow-text">
         <div class="srow-name">Support</div>
-        <div class="srow-desc">For help or bug reports, email <a href="mailto:blankrhi@gmail.com" style="color:var(--primary)">blankrhi@gmail.com</a></div>
+        <div class="srow-desc">For help or bug reports, email <a href="/cdn-cgi/l/email-protection#6a08060b04011802032a0d070b030644090507" style="color:var(--primary)"><span class="__cf_email__" data-cfemail="fe9c929f90958c9697be99939f9792d09d9193">[email&#160;protected]</span></a></div>
       </div>
-      <a href="mailto:blankrhi@gmail.com" style="font-size:0.78rem;font-weight:800;color:var(--primary);text-decoration:none;white-space:nowrap" class="srow-ctrl">Email ↗</a>
+      <a href="/cdn-cgi/l/email-protection#a0c2ccc1cecbd2c8c9e0c7cdc1c9cc8ec3cfcd" style="font-size:0.78rem;font-weight:800;color:var(--primary);text-decoration:none;white-space:nowrap" class="srow-ctrl">Email ↗</a>
     </div>
 
 <div id="byteCustomModal" class="hidden" style="
   position:fixed;inset:0;z-index:100000;
-  background:rgba(0,0,0,0.7);
+  background:rgba(0,0,0,0.75);
   backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
   display:flex;align-items:flex-end;justify-content:center;
-  padding-bottom:env(safe-area-inset-bottom,0px)
+  touch-action:none;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:none;
 " onclick="if(event.target===this){window.doByteClose&&window.doByteClose()}">
-  <div style="
+  <div id="bcSheet" style="
     background:var(--bg,#09090f);
     border-radius:24px 24px 0 0;
     border:1px solid rgba(255,255,255,0.08);
     border-bottom:none;
     width:100%;max-width:480px;
-    max-height:90vh;
-    overflow-y:auto;
-    overflow-x:hidden;
+    height:min(520px,85vh);
+    max-height:85vh;
+    overflow:hidden;
     display:flex;flex-direction:column;
-    animation:bcSheetIn 0.38s cubic-bezier(0.32,0.72,0,1)
-  ">
+    animation:bcSheetIn 0.38s cubic-bezier(0.32,0.72,0,1);
+    touch-action:pan-y;
+    overscroll-behavior:contain;
+    position:relative;
+  " onclick="event.stopPropagation()">
 
     <!-- Header -->
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 22px 0">
-      <div>
-        <div style="font-size:1.05rem;font-weight:900;color:#fff;letter-spacing:-0.02em">Customise Byte</div>
-        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);margin-top:1px;font-weight:500">Make him yours</div>
-      </div>
+    <div style="display:flex;align-items:center;justify-content:flex-end;padding:12px 16px 0;flex-shrink:0">
       <button id="byteCustomClose" style="
         background:rgba(255,255,255,0.06);
         border:1px solid rgba(255,255,255,0.09);
-        color:rgba(255,255,255,0.4);
-        border-radius:10px;width:34px;height:34px;
-        cursor:pointer;font-size:1rem;font-family:inherit;
+        color:rgba(255,255,255,0.6);
+        border-radius:10px;width:36px;height:36px;
+        cursor:pointer;font-size:1.1rem;font-family:inherit;
         display:flex;align-items:center;justify-content:center;
-        transition:all 0.15s;flex-shrink:0
+        transition:all 0.15s;flex-shrink:0;
+        -webkit-tap-highlight-color:transparent;
       ">✕</button>
     </div>
 
     <!-- Preview stage -->
     <div style="
-      display:flex;flex-direction:column;align-items:center;
-      padding:20px 22px 16px;gap:10px
+      display:flex;flex-direction:row;align-items:center;
+      padding:10px 22px 10px;gap:16px;flex-shrink:0;
     ">
       <!-- Byte on stage -->
-      <div style="position:relative;width:130px;height:130px;flex-shrink:0">
+      <div style="position:relative;width:80px;height:80px;flex-shrink:0">
         <!-- Stage glow -->
         <div id="bcStageGlow" style="
           position:absolute;inset:-20px;
@@ -2413,13 +2408,17 @@ ByteTutorial.init();
           transition:filter 0.5s ease;
         "></div>
       </div>
-      <!-- Current selection badge -->
-      <div id="bcCurrentLabel" style="
-        font-size:0.7rem;font-weight:700;
-        color:rgba(255,255,255,0.35);
-        letter-spacing:0.05em;text-transform:uppercase;
-        min-height:16px;transition:color 0.3s
-      "></div>
+      <!-- Current selection label -->
+      <div style="flex:1;min-width:0">
+        <div style="font-size:0.88rem;font-weight:800;color:#fff;margin-bottom:3px">Customise Byte</div>
+        <div id="bcCurrentLabel" style="
+          font-size:0.7rem;font-weight:700;
+          color:rgba(255,255,255,0.4);
+          letter-spacing:0.02em;
+          min-height:16px;transition:color 0.3s;
+          white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+        "></div>
+      </div>
     </div>
 
     <!-- Tabs -->
@@ -2430,7 +2429,7 @@ ByteTutorial.init();
     </div>
 
     <!-- Tab panels — scrollable -->
-    <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 22px 8px">
+    <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:14px 22px 8px;min-height:0">
 
       <!-- COLOUR PANEL -->
       <div id="bcPanel-color" class="bc-panel">
@@ -2601,7 +2600,7 @@ ByteTutorial.init();
   #byteCustomSave:active { transform:translateY(0); }
 </style>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function() {
   /* ─── Data ─────────────────────────────────────────────────── */
   var COLORS = {
@@ -2841,16 +2840,69 @@ ByteTutorial.init();
     renderHats();
     renderAccs();
     refreshPreview(false);
+    // Wire up close button
+    var closeBtn = document.getElementById("byteCustomClose");
+    if (closeBtn) {
+      closeBtn.onclick = function(e) { e.stopPropagation(); window.doByteClose(); };
+    }
+    // Wire up save button
+    var saveBtn = document.getElementById("byteCustomSave");
+    if (saveBtn) {
+      saveBtn.onclick = function(e) {
+        e.stopPropagation();
+        try { localStorage.setItem("byteCustom", JSON.stringify(cur)); } catch(e2) {}
+        window._byteCustom = cur;
+        // Dispatch event so Byte updates everywhere
+        try { window.dispatchEvent(new CustomEvent("byteCustomUpdated", {detail: cur})); } catch(e3) {}
+        window.doByteClose();
+        // Flash confirmation
+        var btn = document.getElementById("byteCustomSave");
+        if (btn) {
+          var orig = btn.textContent;
+          btn.textContent = "✓ Saved!";
+          btn.style.background = "linear-gradient(135deg,#059669,#047857)";
+          setTimeout(function() { 
+            if (btn) { btn.textContent = orig; btn.style.background = ""; }
+          }, 1200);
+        }
+      };
+    }
+    // Tab buttons
+    document.querySelectorAll(".bc-tab").forEach(function(btn) {
+      btn.onclick = function(e) { e.stopPropagation(); switchTab(btn.getAttribute("data-tab")); };
+    });
   };
 
-  function doClose() {
-    document.getElementById("byteCustomModal").classList.add("hidden");
-    document.body.style.overflow = "";
-    window._byteCustom = loadCur();
-  }
-  window.doByteClose = doClose;
+  window.doByteClose = function() {
+    var modal = document.getElementById("byteCustomModal");
+    if (!modal) return;
+    var sheet = document.getElementById("bcSheet");
+    if (sheet) {
+      sheet.style.transition = "transform 0.28s cubic-bezier(0.4,0,1,1), opacity 0.22s ease";
+      sheet.style.transform = "translateY(100%)";
+      sheet.style.opacity = "0";
+      setTimeout(function() {
+        modal.classList.add("hidden");
+        if (sheet) { sheet.style.transform = ""; sheet.style.opacity = ""; sheet.style.transition = ""; }
+        document.body.style.overflow = "";
+        document.documentElement.style.overflow = "";
+      }, 280);
+    } else {
+      modal.classList.add("hidden");
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
+  };
+
+  // Prevent body scroll when modal open
+  document.getElementById("byteCustomModal").addEventListener("touchmove", function(e) {
+    // Allow scrolling inside the panel
+    var panel = e.target.closest("#bcSheet > div[style*=overflow]");
+    if (!panel) e.preventDefault();
+  }, {passive: false});
 
 })();
 </script>
+
 </body>
 </html>
