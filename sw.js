@@ -10,11 +10,11 @@
    Example: "v3" → "v4" → "v5" etc.
 ===================================================== */
 
-const VERSION = "v3";  // ← bump this every time you deploy changes
+const VERSION = "v4";  // ← bump this every time you deploy changes
 const CACHE   = `habit-tracker-${VERSION}`;
 
 // Your GitHub Pages base path — change this if your repo name changes
-const BASE    = "/blankwebsite";
+const BASE    = "/byte";
 const OFFLINE = `${BASE}/monthly.html`;
 
 const PRECACHE = [

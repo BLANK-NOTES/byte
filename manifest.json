@@ -2,8 +2,8 @@
   "name": "Habit Tracker",
   "short_name": "Habits",
   "description": "Track your daily habits, earn XP, compete with friends",
-  "start_url": "/blankwebsite/monthly.html",
-  "scope": "/blankwebsite/",
+  "start_url": "/byte/monthly.html",
+  "scope": "/byte/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#09090f",
@@ -33,17 +33,17 @@
   "shortcuts": [
     {
       "name": "Today's Habits",
-      "url": "/blankwebsite/monthly.html",
+      "url": "/byte/monthly.html",
       "description": "Open your habit grid"
     },
     {
       "name": "Journal",
-      "url": "/blankwebsite/journal.html",
+      "url": "/byte/journal.html",
       "description": "Log your mood and notes"
     },
     {
       "name": "Leaderboard",
-      "url": "/blankwebsite/leaderboard.html",
+      "url": "/byte/leaderboard.html",
       "description": "See how you rank"
     }
   ]
