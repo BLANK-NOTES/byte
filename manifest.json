@@ -2,7 +2,8 @@
   "name": "Habit Tracker",
   "short_name": "Habits",
   "description": "Track your daily habits, earn XP, compete with friends",
-  "start_url": "/monthly.html",
+  "start_url": "/blankwebsite/monthly.html",
+  "scope": "/blankwebsite/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#09090f",
@@ -10,27 +11,39 @@
   "categories": ["health", "lifestyle", "productivity"],
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%2309090f'/><text y='360' x='256' font-size='300' text-anchor='middle'>✅</text></svg>",
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "screenshots": [],
   "shortcuts": [
     {
       "name": "Today's Habits",
-      "url": "/monthly.html",
+      "url": "/blankwebsite/monthly.html",
       "description": "Open your habit grid"
     },
     {
       "name": "Journal",
-      "url": "/journal.html",
+      "url": "/blankwebsite/journal.html",
       "description": "Log your mood and notes"
     },
     {
       "name": "Leaderboard",
-      "url": "/leaderboard.html",
+      "url": "/blankwebsite/leaderboard.html",
       "description": "See how you rank"
     }
   ]
