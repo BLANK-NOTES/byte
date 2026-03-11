@@ -2205,134 +2205,7 @@
       };
     })();
   </script>
-<style id="mobileGridFix">
-@media (max-width: 820px) {
 
-  /* Keep the grid visible and make it scroll */
-  .month-grid-wrapper,
-  #gridWrapper {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    display: block !important;
-    padding: 4px !important;
-  }
-
-  /* Each row scrolls as a unit */
-  .grid-row {
-    display: grid !important;
-    grid-template-columns: 150px repeat(31, 40px) !important;
-    gap: 3px !important;
-    min-width: max-content !important;
-  }
-
-  /* Sticky task name column */
-  .grid-cell.task-name,
-  .grid-cell.task-label {
-    position: sticky !important;
-    left: 0 !important;
-    z-index: 5 !important;
-    background: var(--bg-card, #121522) !important;
-    box-shadow: 4px 0 10px rgba(0,0,0,0.5) !important;
-    width: 150px !important;
-    min-width: 150px !important;
-    max-width: 150px !important;
-    padding: 6px 8px !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    flex-wrap: nowrap !important;
-    gap: 4px !important;
-    min-height: 48px !important;
-    overflow: visible !important;
-    border-radius: 6px !important;
-  }
-
-  /* Full habit name — no truncation */
-  .grid-cell.task-name > span:first-child {
-    font-size: 0.76rem !important;
-    font-weight: 700 !important;
-    color: var(--text-main, #eaeaff) !important;
-    white-space: normal !important;
-    word-break: break-word !important;
-    overflow: visible !important;
-    text-overflow: unset !important;
-    line-height: 1.2 !important;
-    flex: 1 !important;
-    min-width: 0 !important;
-  }
-
-  /* Show ALL badges */
-  .grace-badge,
-  .freeze-badge,
-  .strength-badge {
-    display: inline-flex !important;
-    visibility: visible !important;
-    font-size: 0.8rem !important;
-    flex-shrink: 0 !important;
-  }
-
-  /* Show delete + freeze buttons */
-  .delete-task,
-  .freeze-task-btn {
-    display: inline-flex !important;
-    visibility: visible !important;
-    font-size: 0.9rem !important;
-    padding: 3px !important;
-    background: none !important;
-    border: none !important;
-    cursor: pointer !important;
-    flex-shrink: 0 !important;
-  }
-
-  /* Day cells */
-  .grid-cell.status {
-    width: 40px !important;
-    min-width: 40px !important;
-    height: 44px !important;
-    min-height: 44px !important;
-    font-size: 0.85rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  /* Header day cells */
-  .grid-header .grid-cell,
-  .grid-header .day {
-    width: 40px !important;
-    min-width: 40px !important;
-    height: 36px !important;
-    font-size: 0.65rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  /* Sticky header */
-  .grid-header {
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 10 !important;
-    min-width: max-content !important;
-  }
-
-  /* Sticky header task label */
-  .grid-header .grid-cell.task-label {
-    position: sticky !important;
-    left: 0 !important;
-    z-index: 11 !important;
-    background: var(--bg-panel, #0b0d14) !important;
-    width: 150px !important;
-    min-width: 150px !important;
-  }
-
-  /* Shield badge */
-  #shieldBadge {
-    display: inline-flex !important;
-    visibility: visible !important;
-  }
-}
-</style>
 
 </head>
 
@@ -3987,5 +3860,291 @@ document.addEventListener('DOMContentLoaded', () => { renderCustomCatBtns(); });
     </div>
   </div>
 </div>
+
+<style id="mobileGridFix">
+@media (max-width: 820px) {
+  /* Hide old grid completely */
+  #gridWrapper { display: none !important; }
+
+  /* Mobile card grid container */
+  #mobileGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 8px 10px 100px;
+  }
+
+  .mg-card {
+    background: var(--bg-card, #121522);
+    border: 1px solid var(--border, #2a2f55);
+    border-radius: 18px;
+    padding: 14px 15px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  }
+
+  .mg-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .mg-name {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main, #eaeaff);
+    line-height: 1.3;
+    word-break: break-word;
+    min-width: 0;
+  }
+
+  .mg-badge { font-size: 1rem; flex-shrink: 0; cursor: help; }
+
+  .mg-strength {
+    font-size: 0.58rem;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .mg-btn {
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border, #2a2f55);
+    border-radius: 10px;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mg-btn:active { background: rgba(255,255,255,0.15); transform: scale(0.9); }
+
+  .mg-days { display: flex; gap: 10px; }
+
+  .mg-day {
+    flex: 1;
+    min-height: 78px;
+    border-radius: 14px;
+    border: 2px solid var(--border, #2a2f55);
+    background: rgba(255,255,255,0.02);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 3px; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    transition: transform 0.1s;
+    position: relative; overflow: hidden;
+  }
+  .mg-day:active:not(.mgd-locked) { transform: scale(0.93); }
+
+  .mg-day-lbl {
+    font-size: 0.58rem; font-weight: 900;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted, #9aa4ff); line-height: 1;
+  }
+  .mg-day-icon { font-size: 2rem; line-height: 1; }
+  .mg-day-word { font-size: 0.62rem; font-weight: 700; color: var(--text-muted, #9aa4ff); }
+
+  .mgd-today { border-color: var(--primary,#4CAF50)!important; background: rgba(76,175,80,0.1)!important; }
+  .mgd-today .mg-day-lbl { color: var(--primary,#4CAF50)!important; }
+
+  .mgd-done { background: rgba(74,222,128,0.14)!important; border-color: rgba(74,222,128,0.7)!important; }
+  .mgd-done .mg-day-lbl, .mgd-done .mg-day-word { color: #4ade80!important; }
+
+  .mgd-failed { background: rgba(248,113,113,0.12)!important; border-color: rgba(248,113,113,0.6)!important; }
+  .mgd-failed .mg-day-lbl, .mgd-failed .mg-day-word { color: #f87171!important; }
+
+  .mgd-locked { opacity: 0.2!important; cursor: not-allowed!important; }
+
+  .mg-note-dot {
+    position: absolute; top: 6px; right: 7px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--primary, #4CAF50);
+  }
+}
+</style>
+
+<script>
+/* ── INLINE MOBILE GRID ── runs after monthly.js ── */
+(function() {
+  if (window.innerWidth > 820) return;
+
+  var DOWS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+  function build() {
+    var month = window._currentMonthData && window._currentMonthData();
+    if (!month || !month.tasks || !month.tasks.length) {
+      setTimeout(build, 400);
+      return;
+    }
+
+    var year  = window._currentYear  ? window._currentYear()  : new Date().getFullYear();
+    var mon   = window._currentMonth ? window._currentMonth() : new Date().getMonth();
+    var notes = window._getNotes     ? window._getNotes()     : {};
+
+    var td = new Date();
+    var tDay = td.getDate(), tMon = td.getMonth(), tYear = td.getFullYear();
+    var isCur = (year === tYear && mon === tMon);
+
+    var days = [];
+    if (isCur) {
+      days = tDay > 1 ? [tDay-2, tDay-1] : [0];
+    } else {
+      var dim = new Date(year, mon+1, 0).getDate();
+      days = dim > 1 ? [dim-2, dim-1] : [0];
+    }
+
+    var FREEZE_COST = window._FREEZE_COST || 30;
+
+    var box = document.getElementById('mobileGrid');
+    if (!box) {
+      box = document.createElement('div');
+      box.id = 'mobileGrid';
+      var gw = document.getElementById('gridWrapper');
+      if (!gw) { setTimeout(build, 300); return; }
+      gw.parentNode.insertBefore(box, gw.nextSibling);
+    }
+    box.innerHTML = '';
+
+    month.tasks.forEach(function(task) {
+      var card = document.createElement('div');
+      card.className = 'mg-card';
+
+      /* ── name row ── */
+      var top = document.createElement('div');
+      top.className = 'mg-top';
+
+      var nameEl = document.createElement('div');
+      nameEl.className = 'mg-name';
+      nameEl.textContent = task.name || 'Habit';
+      top.appendChild(nameEl);
+
+      /* strength */
+      var str = window._getHabitStrength && window._getHabitStrength(task);
+      if (str) {
+        var sb = document.createElement('span');
+        sb.className = 'mg-strength ' + (str.cls||'');
+        sb.textContent = str.label; sb.title = str.tip||'';
+        top.appendChild(sb);
+      }
+
+      /* grace/skull */
+      var gLeft = (task.graceLimit||1) - (task.graceUsed||0);
+      var gb = document.createElement('span');
+      gb.className = 'mg-badge';
+      gb.textContent = gLeft > 0 ? '🛡️' : '💀';
+      gb.style.opacity = gLeft > 0 ? '0.9' : '0.55';
+      gb.title = gLeft > 0 ? "Grace: 1 miss won't break streak" : "Grace used!";
+      top.appendChild(gb);
+
+      /* freeze badge */
+      var frozen = window._isHabitFrozenToday && window._isHabitFrozenToday(task);
+      if (frozen) {
+        var fb = document.createElement('span');
+        fb.className = 'mg-badge'; fb.textContent = '❄️'; fb.title = 'Frozen today';
+        top.appendChild(fb);
+      }
+
+      /* freeze button */
+      if (isCur) {
+        var fBtn = document.createElement('button');
+        fBtn.className = 'mg-btn'; fBtn.textContent = '❄️';
+        fBtn.title = frozen ? 'Already frozen' : 'Freeze ('+FREEZE_COST+'💎)';
+        if (frozen) fBtn.style.opacity = '0.3';
+        fBtn.onclick = function(e) { e.stopPropagation(); window._buyHabitFreeze && window._buyHabitFreeze(task.id); };
+        top.appendChild(fBtn);
+      }
+
+      /* delete */
+      var del = document.createElement('button');
+      del.className = 'mg-btn'; del.textContent = '🗑️'; del.title = 'Delete';
+      del.onclick = function(e) { e.stopPropagation(); window._deleteTask && window._deleteTask(task.id); };
+      top.appendChild(del);
+
+      card.appendChild(top);
+
+      /* ── day buttons ── */
+      var dRow = document.createElement('div');
+      dRow.className = 'mg-days';
+
+      days.forEach(function(di) {
+        var dayNum  = di + 1;
+        var isToday = isCur && dayNum === tDay;
+        var isYest  = isCur && dayNum === tDay - 1;
+        var status  = (task.days && task.days[di]) || 'unmarked';
+        var locked  = status === 'locked';
+        var dow     = DOWS[new Date(year, mon, dayNum).getDay()];
+
+        var btn = document.createElement('div');
+        btn.className = 'mg-day';
+
+        var lbl = document.createElement('div');
+        lbl.className = 'mg-day-lbl';
+        lbl.textContent = isToday ? 'TODAY' : isYest ? 'YESTERDAY' : dow;
+
+        var ico = document.createElement('div');
+        ico.className = 'mg-day-icon';
+        ico.textContent = locked ? '—' : status==='done' ? '✅' : status==='failed' ? '❌' : isToday ? '⭕' : '○';
+
+        var word = document.createElement('div');
+        word.className = 'mg-day-word';
+        word.textContent = locked ? 'Off day' : status==='done' ? 'Done ✓' : status==='failed' ? 'Missed' : 'Tap';
+
+        btn.appendChild(lbl); btn.appendChild(ico); btn.appendChild(word);
+
+        /* note dot */
+        var nk = task.id + '_' + di;
+        if (notes[nk]) {
+          var dot = document.createElement('div'); dot.className = 'mg-note-dot';
+          btn.appendChild(dot);
+        }
+
+        if (isToday && !locked)  btn.classList.add('mgd-today');
+        if (status === 'done')   btn.classList.add('mgd-done');
+        if (status === 'failed') btn.classList.add('mgd-failed');
+        if (locked)              btn.classList.add('mgd-locked');
+
+        if (!locked) {
+          btn.onclick = function() {
+            window._cycleStatus && window._cycleStatus(task, di);
+            setTimeout(build, 80);
+          };
+        }
+
+        dRow.appendChild(btn);
+      });
+
+      card.appendChild(dRow);
+      box.appendChild(card);
+    });
+  }
+
+  /* Watch for grid renders */
+  function watchGrid() {
+    var gw = document.getElementById('gridWrapper');
+    if (!gw) { setTimeout(watchGrid, 300); return; }
+    new MutationObserver(function() { setTimeout(build, 80); }).observe(gw, {childList:true});
+    build();
+  }
+
+  /* Start after monthly.js finishes */
+  var orig = window._pageReady;
+  window._pageReady = function() { if(orig) orig(); setTimeout(build, 300); };
+
+  /* Also try immediately after DOM ready */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(watchGrid, 800); });
+  } else {
+    setTimeout(watchGrid, 800);
+  }
+})();
+</script>
+
 </body>
 </html>
